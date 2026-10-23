@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>O Código das Cientistas — Escape Room Tecnológico</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+
+<style>
+:root{--bg:#05000A;--pn:#12041c;--sf:#1d0a2c;--pk:#FF3DDB;--pu:#9B30FF;--lv:#D07BFF;--tx:#FFF1FD;--t2:#C7A3D6;--ok:#4ADE80;--er:#FF5A5F;
+--d:Orbitron,"Segoe UI",sans-serif;--b:Inter,system-ui,sans-serif;--m:"JetBrains Mono",Consolas,monospace;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:radial-gradient(ellipse at 15% 0,#9b30ff44,transparent 55%),radial-gradient(ellipse at 90% 100%,#ff3ddb33,transparent 55%),var(--bg);color:var(--tx);font:16px/1.6 var(--b);overflow-x:hidden;text-align:center}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(#ff3ddb0c 1px,transparent 1px) 0 0/100% 44px,linear-gradient(90deg,#9b30ff0c 1px,transparent 1px) 0 0/44px 100%}
+body::after{content:"";position:fixed;left:0;right:0;top:0;height:120px;pointer-events:none;background:linear-gradient(transparent,#ff3ddb12,transparent);animation:scan 7s linear infinite}
+@keyframes scan{to{transform:translateY(100vh)}}
+
+header{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:6px 22px;align-items:center;justify-content:center;padding:12px 18px;background:#0a0212dd;border-bottom:1px solid #ff3ddb55;backdrop-filter:blur(8px)}
+header b{font:800 13px var(--d);letter-spacing:.14em;color:var(--pk);text-shadow:0 0 10px var(--pk)}
+header span{font:12px var(--m);color:var(--t2)}
+.dots i{display:inline-block;width:11px;height:11px;margin:0 3px;border-radius:50%;border:1px solid var(--pk);vertical-align:middle}
+.dots i.on{background:var(--pk);box-shadow:0 0 10px var(--pk)}
+
+main{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;width:100%;padding:24px 16px 48px}
+.panel{width:min(720px,100%);background:linear-gradient(160deg,#12041cf5,#1d0a2ccc);border:1px solid #ff3ddb66;border-radius:14px;padding:28px 24px;box-shadow:0 0 44px #9b30ff33,inset 0 0 30px #ff3ddb0d;animation:in .5s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+h1{font:800 clamp(26px,6vw,48px)/1.12 var(--d);margin:.2em 0;letter-spacing:.04em;background:linear-gradient(90deg,var(--pk),var(--lv),var(--pu));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px #ff3ddb66)}
+
+h2{font:600 20px var(--d);margin:0 0 8px;color:var(--pk);text-shadow:0 0 10px #ff3ddb88}
+
+h3{font:600 15px var(--d);margin:4px 0}
+.sub{font:700 clamp(12px,3vw,17px) var(--d);letter-spacing:.3em;color:var(--lv);margin:0}
+.snct{font:13px var(--m);color:var(--pk);margin:0}
+.quote{font-size:18px;font-style:italic;margin:18px 0 8px}
+p{margin:.5em 0}.mut{color:var(--t2)}
+
+.chips,.btns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0 0}
+.chips span{font:12px var(--m);padding:5px 10px;border:1px solid #9b30ffaa;border-radius:999px;background:#9b30ff1f}
+button{font:700 13px var(--d);letter-spacing:.08em;color:var(--tx);background:var(--sf);border:1px solid var(--pu);border-radius:8px;padding:12px 18px;cursor:pointer;transition:.2s}
+button:hover{box-shadow:0 0 16px #ff3ddb88;border-color:var(--pk);transform:translateY(-1px)}
+button.go{background:linear-gradient(90deg,var(--pk),var(--pu));border-color:transparent;color:#fff;box-shadow:0 0 22px #ff3ddb66}
+button:focus-visible,input:focus-visible{outline:2px solid var(--lv);outline-offset:2px}
+button:disabled{opacity:.4;cursor:default;transform:none;box-shadow:none}
+
+.term{text-align:left;font:14px/1.7 var(--m);background:#030007;border:1px solid #ff3ddb55;border-radius:10px;padding:16px;min-height:130px;color:var(--pk)}
+
+.term .l{display:block;animation:in .4s ease}
+.big{font:700 clamp(15px,4vw,22px) var(--m);letter-spacing:.1em;word-break:break-word;margin:8px 0}
+.cyph{color:var(--lv)}.dec{color:var(--ok)}
+input[type=range]{width:100%;accent-color:var(--pk);margin:10px 0}
+input[type=number],input[type=text]{font:700 18px var(--m);width:min(100%,220px);padding:10px;text-align:center;background:#030007;color:var(--pk);border:1px solid var(--pk);border-radius:8px}
+
+.bits{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:14px 0}
+
+.bit{width:44px;font:700 22px var(--m);padding:8px 0 4px;background:#030007;border:1px solid #9b30ff;border-radius:8px;color:var(--pk)}
+.bit small{display:block;font:11px var(--m);color:var(--t2);min-height:16px}
+.calc{max-width:300px;margin:18px auto 0;padding:14px;border:1px dashed var(--lv);border-radius:10px;background:#9b30ff14}
+.calc output{display:inline-block;min-width:80px;font:700 18px var(--m);color:var(--ok)}
+.calc .kd,.calc .kp{margin:8px auto}
+
+.alg{list-style:none;padding:0;margin:14px 0}
+
+.alg li{display:flex;align-items:center;gap:10px;padding:10px 12px;margin:6px 0;background:#030007;border:1px solid #9b30ff88;border-radius:8px;font:14px var(--m);transition:.3s}
+.alg li span{flex:1;text-align:left}.alg li.right{border-color:var(--ok);box-shadow:0 0 12px #4ade8044}.alg li.wrong{border-color:var(--er)}
+.alg li{cursor:grab;touch-action:none;user-select:none}.alg li.drag{border-color:var(--pk);box-shadow:0 0 16px var(--pk);transform:scale(1.02)}.kp{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:260px;margin:8px auto 0}.kp button{padding:10px 0;font:700 16px var(--m)}.kd{font:700 22px var(--m);text-align:right;padding:10px;background:#030007;border:1px solid var(--pk);border-radius:8px;color:var(--ok);max-width:260px;margin:0 auto;overflow:hidden}
+
+.tog{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:14px 0}
+
+.tog button{min-width:90px}.tog button.on{background:var(--pk);color:#05000A;box-shadow:0 0 18px var(--pk)}
+.msg{min-height:26px;margin-top:12px;font:700 14px var(--m)}
+.msg.ok{color:var(--ok)}.msg.err{color:var(--er);animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+.clue{margin-top:16px;padding:14px 16px;border:1px solid var(--ok);border-radius:10px;background:#4ade8014;animation:in .6s ease;box-shadow:0 0 24px #4ade8033}
+
+.clue b{font:700 12px var(--m);color:var(--ok)}
+.clues{margin:14px 0;padding:12px 16px;border:1px dashed var(--lv);border-radius:10px;font-size:14px}
+.clues ol{margin:6px auto 0;padding-left:20px;display:inline-block;text-align:left}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:14px}
+
+.card{display:flex;flex-direction:column;align-items:center;background:var(--pn);border:1px solid #9b30ffaa;border-radius:12px;padding:16px;font-size:14px;transition:.25s}
+.card:hover{border-color:var(--pk);box-shadow:0 0 22px #ff3ddb55}
+.card .tag{font:11px var(--m);color:var(--lv)}.ph{position:relative;width:112px;height:112px;margin:2px auto 10px;border-radius:50%;border:2px solid var(--pk);box-shadow:0 0 18px #ff3ddb88;background:linear-gradient(135deg,var(--pu),var(--pk));display:flex;align-items:center;justify-content:center;font:800 30px var(--d);overflow:hidden}.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card p{flex:1;color:var(--t2)}
+.card.sel{border-color:var(--er);opacity:.5}
+.card.win{border-color:var(--ok);box-shadow:0 0 34px #4ade8088;animation:pulse 1.4s ease infinite;margin-top:14px}
+@keyframes pulse{50%{box-shadow:0 0 54px #4ade80aa}}
+
+.modal{position:fixed;inset:0;z-index:9;display:none;align-items:center;justify-content:center;padding:16px;background:#030007ee}
+
+.modal.on{display:flex}
+.modal .panel{max-width:560px;max-height:85vh;overflow:auto}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><b>O CÓDIGO DAS CIENTISTAS</b><span id="sec"></span><span id="ph"></span><span class="dots" id="dots" aria-label="Pistas coletadas"></span></header>
+
+<main><div id="app" style="width:100%;display:flex;justify-content:center"></div></main>
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="panel" id="mbox"></div></div>
+
+<script>
+const $=s=>document.querySelector(s),app=$("#app");
+const S={p:0,o:[],i:0,k:3,po:[],c:[],t:0};
+
+let done=[];
+
+try{const s=JSON.parse(localStorage.getItem("cc2")||"null");if(s&&typeof s.p==="number")Object.assign(S,s);done=JSON.parse(localStorage.getItem("cc2d")||"[]")}catch(e){}
+const save=()=>{try{localStorage.setItem("cc2",JSON.stringify(S));localStorage.setItem("cc2d",JSON.stringify(done))}catch(e){}};
+const rnd=n=>Math.floor(Math.random()*n),shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}return a};
+
+const POOL=[
+{n:"Ada Lovelace",y:1815,l:"Reino Unido",f:"ELA ESCREVEU O PRIMEIRO ALGORITMO",c3:"Ela era filha do poeta Lord Byron.",c4:"Ela trabalhou com a máquina analítica de Charles Babbage.",b:"Matemática inglesa, nascida em 1815, que escreveu, no século XIX, um método passo a passo para a máquina analítica de Babbage calcular números de Bernoulli. É considerada a autora do primeiro algoritmo feito para um computador. Filha do poeta Lord Byron."},
+
+{n:"Grace Hopper",y:1906,l:"Estados Unidos",f:"ELA CRIOU O PRIMEIRO COMPILADOR",c3:"Ela chegou a almirante da Marinha dos Estados Unidos.",c4:"Ela ajudou a criar a linguagem COBOL.",b:"Cientista da computação e oficial da Marinha dos EUA, nascida em 1906. Desenvolveu o primeiro compilador, o A-0, e defendeu linguagens próximas do inglês, o que levou ao COBOL. Encerrou a carreira como contra-almirante."},
+
+{n:"Katherine Johnson",y:1918,l:"Estados Unidos",f:"ELA CALCULOU TRAJETORIAS PARA A NASA",c3:"Ela conferiu os cálculos do voo de John Glenn.",c4:"Ela recebeu a Medalha Presidencial da Liberdade em 2015.",b:"Matemática da NASA, nascida em 1918, cujos cálculos de trajetória foram essenciais para os voos tripulados Mercury e Apollo. Conferiu à mão os resultados dos computadores antes do voo de John Glenn. Recebeu a Medalha Presidencial da Liberdade em 2015."},
+
+{n:"Hedy Lamarr",y:1914,l:"Áustria",f:"ELA INVENTOU O SALTO DE FREQUENCIA",c3:"Ela foi atriz famosa de Hollywood.",c4:"A ideia dela inspirou o Wi-Fi e o Bluetooth.",b:"Atriz e inventora nascida em 1914. Criou com George Antheil um sistema de salto de frequência para guiar torpedos sem interferência, ideia que inspirou tecnologias como Wi-Fi e Bluetooth."},
+
+{n:"Margaret Hamilton",y:1936,l:"Estados Unidos",f:"ELA LIDEROU O SOFTWARE DA APOLLO ONZE",c3:"Ela cunhou o termo engenharia de software.",c4:"Ela trabalhou no laboratório do MIT.",b:"Cientista da computação nascida em 1936 que liderou a equipe do software de voo da missão Apollo 11, no MIT, e popularizou o termo engenharia de software."},
+
+{n:"Radia Perlman",y:1951,l:"Estados Unidos",f:"ELA CRIOU O PROTOCOLO SPANNING TREE",c3:"Ela é conhecida como a mãe da internet.",c4:"Ela trabalhou com redes de computadores.",b:"Cientista da computação nascida em 1951 que inventou o algoritmo spanning tree, base do protocolo que evita laços em redes Ethernet. É chamada de mãe da internet."}];
+
+const TY=["cif","bin","alg","log"],NM={cif:"CRIPTOGRAFIA",bin:"SISTEMA BINÁRIO",alg:"ALGORITMOS",log:"LÓGICA"};
+
+const STEPS=["Executar o programa","Observar a mensagem de erro","Localizar a linha com defeito","Corrigir o código","Testar o programa novamente"];
+
+const sh=(t,k)=>t.replace(/[A-Z]/g,c=>String.fromCharCode((((c.charCodeAt(0)-65+k)%26)+26)%26+65));
+const SC=()=>POOL[S.i];
+
+const ph=i=>{const n=POOL[i].n,s=n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ /g,"-");return `<div class="ph">${n.split(" ").map(x=>x[0]).join("")}<img src="fotos/${s}.jpg" alt="Foto de ${n}" onerror="this.remove()"></div>`};
+
+const DET=["Augusta Ada King, condessa de Lovelace, era filha do poeta Lord Byron e foi educada em matemática desde a infância. Conheceu Charles Babbage e, em 1843, traduziu um artigo sobre a máquina analítica, acrescentando notas mais longas que o próprio texto. Na Nota G, descreveu uma sequência de operações para calcular números de Bernoulli, considerada o primeiro algoritmo pensado para ser executado por uma máquina. Ela também intuiu que máquinas poderiam manipular símbolos e música, não só números. Morreu aos 36 anos, e a linguagem de programação Ada leva seu nome.",
+"Doutora em matemática por Yale, Grace Hopper foi professora antes de entrar na Marinha dos EUA, durante a Segunda Guerra Mundial. Trabalhou no computador Mark I, em Harvard, e depois no UNIVAC. Em 1952 criou o A-0, considerado o primeiro compilador, e defendeu que programas deveriam ser escritos em linguagem próxima do inglês, o que levou ao FLOW-MATIC e influenciou o COBOL. Em 1947, sua equipe registrou uma mariposa presa no Mark II, episódio que popularizou a palavra bug. Aposentou-se em 1986 como contra-almirante.",
+"Katherine Johnson terminou a faculdade de matemática e francês aos 18 anos. Entrou no NACA, antecessor da NASA, em 1953 e trabalhou como computadora humana no centro de Langley. Calculou a trajetória do voo de Alan Shepard, em 1961, e, em 1962, John Glenn pediu que ela conferisse os cálculos do computador antes de orbitar a Terra. Também contribuiu para as missões Apollo 11 e Apollo 13. Recebeu a Medalha Presidencial da Liberdade em 2015, e sua história inspirou o filme “Estrelas Além do Tempo”. Morreu aos 101 anos.",
+"Nascida Hedwig Kiesler, em Viena, Hedy Lamarr tornou-se atriz de cinema e mudou-se para Hollywood em 1938. Autodidata, gostava de inventar. Com o compositor George Antheil, patenteou em 1942 um sistema de comunicação secreta com salto de frequência, pensado para guiar torpedos sem interferência. A Marinha dos EUA não o adotou na época, mas o princípio inspirou tecnologias sem fio posteriores, como Wi-Fi e Bluetooth. Só foi reconhecida como inventora no fim da vida, com um prêmio da Electronic Frontier Foundation em 1997.",
+"Margaret Hamilton formou-se em matemática e começou a programar no MIT, onde passou a dirigir a equipe de software de voo do programa Apollo, no Laboratório de Instrumentação. Em 1969, perto da alunissagem da Apollo 11, o computador de bordo recebeu uma sobrecarga de tarefas e emitiu alarmes, mas o software que ela projetou priorizou as funções críticas e a missão seguiu. Ela popularizou o termo engenharia de software, para dar à programação o mesmo rigor de outras engenharias, e recebeu a Medalha Presidencial da Liberdade em 2016.",
+"Radia Perlman estudou matemática e computação no MIT e fez carreira em empresas como a Digital Equipment Corporation. Em 1985 inventou o algoritmo spanning tree, base do protocolo STP, que impede que redes Ethernet entrem em ciclos infinitos de mensagens e permite redes grandes com caminhos redundantes. Escreveu livros influentes sobre redes e segurança e acumulou dezenas de patentes. Por essas contribuições à infraestrutura da internet, é conhecida como a mãe da internet."];
+let order=[],tries=0;
+function head(){const p=S.p;$("#sec").textContent=p===0?"ENTRADA DO LABORATÓRIO":p<5?"SETOR "+p+" · "+NM[S.o[p-1]]:p===5?"NÚCLEO CENTRAL":"ARQUIVO DESBLOQUEADO";
+$("#ph").textContent=p>0&&p<6?"FASE "+p+" DE 5":"";$("#dots").innerHTML=[0,1,2,3].map(i=>`<i class="${i<S.c.length?"on":""}"></i>`).join("")}
+
+function go(p){S.p=p;save();head();scrollTo(0,0);p===0?home():p<5?PZ[S.o[p-1]]():p===5?final():victory()}
+
+const say=(t,ok)=>{const m=$("#msg");m.className="msg "+(ok?"ok":"err");m.textContent=t;void m.offsetWidth};
+
+function win(t){S.c.push(t);save();head();$("#fb").innerHTML=`<div class="msg ok">ACESSO LIBERADO</div><div class="clue"><b>PISTA ${S.c.length} DESBLOQUEADA</b><p>${t}</p></div><div class="btns"><button class="go" id="nx">${S.p<4?"PRÓXIMA FASE":"ENTRAR NO NÚCLEO"}</button></div>`;$("#nx").onclick=()=>go(S.p+1)}
+
+function newGame(){let c=POOL.map((_,i)=>i).filter(i=>!done.includes(i));if(!c.length){done=[];c=POOL.map((_,i)=>i)}
+S.i=c[rnd(c.length)];done.push(S.i);S.o=shuf(TY);S.k=14+rnd(11);S.c=[];tries=0;order=shuf([0,1,2,3,4]);while(order.every((s,i)=>s===i))order=shuf(order);
+const others=shuf(POOL.map((_,i)=>i).filter(i=>i!==S.i)).slice(0,3);S.po=shuf([S.i,...others]);save()}
+
+function home(){app.innerHTML=`<div class="panel"><p class="snct">SNCT 2026 · CIÊNCIA DELAS</p><h1>O CÓDIGO DAS CIENTISTAS</h1><p class="sub">ESCAPE ROOM TECNOLÓGICO</p>
+<p class="quote">“Quatro desafios. Quatro cartazes. Uma descoberta que mudará tudo.”</p>
+<p class="mut">Entre em um laboratório digital, resolva enigmas tecnológicos, investigue pistas históricas e descubra qual cientista ajudou a transformar a história da computação. A cientista muda a cada partida.</p>
+<div class="chips"><span>5 fases</span><span>10 a 15 minutos</span><span>Dificuldade básica</span><span>Jogo individual</span><span>Investigação científica</span></div>
+<div class="btns"><button class="go" id="b1">INICIAR MISSÃO</button>${S.p>0&&S.p<6?'<button id="b0">CONTINUAR</button>':""}<button id="b2">COMO JOGAR</button><button id="b3">SOBRE O PROJETO</button></div></div>`;
+$("#b1").onclick=()=>{newGame();intro()};if($("#b0"))$("#b0").onclick=()=>go(S.p);
+$("#b2").onclick=()=>modal("COMO JOGAR",`<p>Resolva quatro desafios para coletar quatro pistas sobre uma cientista real. A ordem dos desafios muda a cada partida.</p><p>Criptografia, sistema binário (com calculadora), algoritmos e lógica. Na quinta fase, leia os quatro cartazes e escolha a cientista que combina com todas as pistas.</p><p class="mut">Cada desafio tem um botão de dica. O progresso fica salvo neste navegador.</p>`);
+$("#b3").onclick=()=>modal("SOBRE O PROJETO",`<p>Jogo educativo da 23ª Semana Nacional de Ciência e Tecnologia (SNCT) de 2026, com o tema “Ciência Delas”.</p><p>Apresenta conceitos básicos de computação e destaca mulheres que ajudaram a construir a história da ciência e da tecnologia. A cientista sorteada rotaciona entre as partidas.</p><p class="mut">Funciona no navegador, sem cadastro e sem coleta de dados pessoais.</p>`)}
+
+function intro(){S.p=0;head();const L=["> Inicializando laboratório digital...","> Arquivo científico bloqueado.","> Identidade da cientista: DESCONHECIDA.","> Superar quatro desafios para liberar as pistas.","> Missão aceita. Boa investigação."];
+app.innerHTML=`<div class="panel"><div class="term" id="t"></div><div class="btns"><button class="go" id="st" disabled>ENTRAR NO PRIMEIRO SETOR</button></div></div>`;
+let i=0;const step=()=>{if(i<L.length){$("#t").insertAdjacentHTML("beforeend",`<span class="l">${L[i++]}</span>`);setTimeout(step,600)}else $("#st").disabled=false};step();$("#st").onclick=()=>go(1)}
+
+const PZ={
+cif(){const E=sh(SC().f,S.k);app.innerHTML=`<div class="panel"><h2>Mensagem criptografada</h2>
+<p class="mut">Cifra de César: cada letra foi deslocada para frente por muitas posições. Mova o controle bem adiante, até a frase fazer sentido, e confirme.</p>
+<div class="big cyph">${E}</div><input type="range" id="k" min="0" max="25" value="0" aria-label="Deslocamento"><div class="mut">Deslocamento para trás: <b id="kv" class="dec">0</b></div><div class="big dec" id="out">${E}</div>
+<div class="btns"><button class="go" id="ok">DECIFRAR</button><button id="hint">DICA</button></div><div class="msg" id="msg"></div><div id="fb"></div></div>`;
+const k=$("#k");k.oninput=()=>{$("#kv").textContent=k.value;$("#out").textContent=sh(E,-k.value)};
+$("#ok").onclick=()=>{if(+k.value===S.k){k.disabled=true;$("#ok").disabled=true;$("#out").textContent=SC().f;win(SC().f.charAt(0)+SC().f.slice(1).toLowerCase()+".")}else say("Frase ainda sem sentido. Tente outro deslocamento.")};
+$("#hint").onclick=()=>say("Dica: a primeira palavra tem 3 letras e a frase começa falando de uma mulher.",1)},
+bin(){const n=SC().y,b=n.toString(2),v=[...b].map((_,i)=>2**(b.length-1-i));
+app.innerHTML=`<div class="panel"><h2>Sequência binária</h2><p class="mut">Cada posição vale o dobro da posição à direita. Some os valores das posições com bit 1 para descobrir o ano de nascimento.</p>
+<div class="bits">${[...b].map(x=>`<div class="bit">${x}<small></small></div>`).join("")}</div>
+<label class="mut" for="ans">Ano encontrado:</label><br><input type="number" id="ans" inputmode="numeric">
+<div class="btns"><button class="go" id="ok">CONVERTER</button><button id="hint">MOSTRAR VALORES</button></div><div class="msg" id="msg"></div><div id="fb"></div>
+<div class="calc"><h3>CALCULADORA</h3><div class="kd" id="kd">0</div><div class="kp" id="kp">${["7","8","9","÷","4","5","6","×","1","2","3","−","0",".","C","+"].map(k=>`<button>${k}</button>`).join("")}<button class="go" style="grid-column:1/-1">=</button></div></div></div>`;
+let cur="0",acc=null,op=null,fresh=true;const kd=$("#kd"),ap=(a,o,b)=>o==="+"?a+b:o==="−"?a-b:o==="×"?a*b:o==="÷"?(b?a/b:NaN):b,fmt=x=>isFinite(x)?String(+x.toFixed(8)):"Erro";
+$("#kp").onclick=e=>{const k=e.target.closest("button");if(!k)return;const t=k.textContent;if(t==="C"){cur="0";acc=null;op=null;fresh=true}else if("+−×÷".includes(t)){if(op&&!fresh){acc=ap(acc,op,+cur);cur=fmt(acc)}else acc=+cur;op=t;fresh=true}else if(t==="="){if(op){cur=fmt(ap(acc,op,+cur));op=null;acc=null;fresh=true}}else if(t==="."){if(fresh){cur="0.";fresh=false}else if(!cur.includes("."))cur+="."}else{cur=fresh||cur==="0"?t:cur+t;fresh=false}kd.textContent=cur};
+
+$("#hint").onclick=()=>{document.querySelectorAll(".bit small").forEach((s,i)=>s.textContent=v[i]);say("Some só os valores onde o bit é 1.",1)};
+$("#ok").onclick=()=>{if(+$("#ans").value===n){$("#ok").disabled=true;win("Ela nasceu em "+n+".")}else say("Valor incorreto. Revise a soma das posições com bit 1.")}},
+alg(){app.innerHTML=`<div class="panel"><h2>Algoritmo</h2><p class="mut">Organize os passos para corrigir um erro em um programa, arrastando os blocos para cima ou para baixo.</p>
+<ul class="alg" id="alg"></ul><div class="btns"><button class="go" id="ok">EXECUTAR ALGORITMO</button><button id="hint">DICA</button></div><div class="msg" id="msg"></div><div id="fb"></div></div>`;
+let dg=-1;const draw=m=>{$("#alg").innerHTML=order.map((s,i)=>`<li data-i="${i}" class="${m?(s===i?"right":"wrong"):""}${i===dg?" drag":""}"><span>${i+1}. ${STEPS[s]}</span><b class="mut">⠿</b></li>`).join("")};draw();
+let lock=false;$("#alg").onpointerdown=e=>{const li=e.target.closest("li");if(!li||lock)return;e.preventDefault();dg=+li.dataset.i;li.classList.add("drag");const mv=ev=>{const el=document.elementFromPoint(ev.clientX,ev.clientY),t=el&&el.closest&&el.closest("#alg li");if(!t)return;const j=+t.dataset.i;if(j===dg)return;const [x]=order.splice(dg,1);order.splice(j,0,x);dg=j;draw()};const up=()=>{removeEventListener("pointermove",mv);removeEventListener("pointerup",up);removeEventListener("pointercancel",up);dg=-1;draw()};addEventListener("pointermove",mv);addEventListener("pointerup",up);addEventListener("pointercancel",up)};
+$("#ok").onclick=()=>{draw(1);if(order.every((s,i)=>s===i)){lock=true;$("#ok").disabled=true;win(SC().c3)}else say("Sequência incorreta. Os passos em verde já estão no lugar certo.")};
+$("#hint").onclick=()=>say("Dica: rode o programa, descubra o erro e só teste de novo no fim.",1)},
+
+log(){let A=0,B=0,C=0;app.innerHTML=`<div class="panel"><h2>Circuito lógico</h2><p class="mut">Ligue ou desligue as chaves para que a saída seja VERDADEIRO.</p>
+<div class="big">(A OU B) E (NÃO A) E C</div><div class="tog"><button id="a">A: 0</button><button id="b">B: 0</button><button id="c">C: 0</button></div><div class="big" id="r">SAÍDA: FALSO</div>
+<div class="btns"><button class="go" id="ok">VALIDAR</button><button id="hint">DICA</button></div><div class="msg" id="msg"></div><div id="fb"></div></div>`;
+const f=()=>(A||B)&&!A&&C;const up=()=>{$("#a").textContent="A: "+A;$("#b").textContent="B: "+B;$("#c").textContent="C: "+C;$("#a").classList.toggle("on",!!A);$("#b").classList.toggle("on",!!B);$("#c").classList.toggle("on",!!C);$("#r").textContent="SAÍDA: "+(f()?"VERDADEIRO":"FALSO")};
+$("#a").onclick=()=>{A^=1;up()};$("#b").onclick=()=>{B^=1;up()};$("#c").onclick=()=>{C^=1;up()};
+$("#ok").onclick=()=>{if(f()){["a","b","c","ok"].forEach(i=>$("#"+i).disabled=true);win(SC().c4)}else say("Saída ainda falsa. Teste as combinações das três chaves.")};
+$("#hint").onclick=()=>say("Dica: NÃO A exige A desligada e C precisa estar ligada. Falta decidir B.",1)}};
+
+function final(){app.innerHTML=`<div class="panel"><h2>Núcleo central · Quatro cartazes</h2><p class="mut">Leia cada biografia com atenção, compare com as pistas e escolha a cientista que combina com todas.</p>
+<div class="clues"><b class="mut">PISTAS COLETADAS</b><br><ol>${S.c.map(c=>`<li>${c}</li>`).join("")}</ol></div>
+<div class="cards">${S.po.map(i=>`<div class="card" id="c${i}">${ph(i)}<span class="tag">${POOL[i].l}</span><h3>${POOL[i].n}</h3><p>${POOL[i].b}</p><button data-i="${i}">É ELA</button></div>`).join("")}</div><div class="msg" id="msg"></div></div>`;
+app.querySelector(".cards").onclick=e=>{const b=e.target.closest("button");if(!b)return;const i=+b.dataset.i;
+if(i===S.i)go(6);else{tries++;$("#c"+i).classList.add("sel");b.disabled=true;say(POOL[i].n+" não corresponde a todas as pistas. Confira ano, cargo e feitos.")}}}
+
+function victory(){const w=SC();app.innerHTML=`<div class="panel"><p class="snct">ARQUIVO RECUPERADO</p><h1>MISSÃO CUMPRIDA</h1>
+<div class="card win">${ph(S.i)}<span class="tag">${w.y} · ${w.l}</span><h3>${w.n}</h3><p>${w.b}</p></div><div class="clues" style="text-align:left"><h3>Resumo da trajetória</h3><p>${DET[S.i]}</p></div>
+<p>Você identificou a cientista${tries?" após "+tries+" erro"+(tries>1?"s":"")+" no núcleo":" sem errar no núcleo"}.</p>
+<p class="mut">Cientistas descobertas nesta rodada de partidas: ${done.length} de ${POOL.length}. Jogue de novo para conhecer outra.</p>
+<div class="btns"><button class="go" id="again">JOGAR NOVAMENTE</button><button id="home">VOLTAR AO INÍCIO</button></div></div>`;$("#again").onclick=()=>{newGame();intro()};$("#home").onclick=()=>go(0)}
+
+function modal(t,h){$("#mbox").innerHTML=`<h2>${t}</h2>${h}<div class="btns"><button class="go" id="mc">FECHAR</button></div>`;$("#modal").classList.add("on");$("#mc").focus();$("#mc").onclick=()=>$("#modal").classList.remove("on")}
+
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("#modal").classList.remove("on")});
+if(S.p===6||!S.o.length||S.i>=POOL.length)S.p=0;
+if(S.p>0&&S.p<5&&!order.length){order=shuf([0,1,2,3,4]);while(order.every((s,i)=>s===i))order=shuf(order)}
+head();home();
+</script>
+</body>
+</html>

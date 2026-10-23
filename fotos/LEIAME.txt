@@ -1,0 +1,12 @@
+Coloque aqui as fotos das cientistas, com estes nomes exatos:
+
+ada-lovelace.jpg
+grace-hopper.jpg
+katherine-johnson.jpg
+hedy-lamarr.jpg
+margaret-hamilton.jpg
+radia-perlman.jpg
+
+Se uma foto faltar, o jogo mostra um circulo com as iniciais da cientista.
+Prefira fotos quadradas ou com o rosto centralizado.
+Confira a licenca e de o credito (ex.: Wikimedia Commons).
